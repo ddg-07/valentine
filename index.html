@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Be My Valentine 💖</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      background: linear-gradient(135deg, #ffd6e8, #fff1f7);
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Poppins', sans-serif;
+      overflow: hidden;
+    }
+
+    .card-box {
+      background: #fff;
+      border-radius: 30px;
+      padding: 35px 25px;
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 12px 35px rgba(0,0,0,0.12);
+      animation: fadeIn 0.4s ease;
+      position: relative;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .back-arrow {
+      position: absolute;
+      top: 15px;
+      left: 20px;
+      font-size: 1.3rem;
+      cursor: pointer;
+      color: #ff4f87;
+    }
+
+    .question {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #ff4f87;
+      margin-bottom: 20px;
+    }
+
+    .baby-img {
+      width: 160px;
+      margin: 10px auto 20px;
+      display: block;
+    }
+
+    .btn-main {
+      background-color: #ff4f87;
+      color: white;
+      border-radius: 30px;
+      padding: 10px 28px;
+      border: none;
+    }
+
+    .btn-soft {
+      background-color: #ffd1e3;
+      color: #ff4f87;
+      border-radius: 30px;
+      padding: 10px 28px;
+      border: none;
+    }
+
+    .letter {
+      background: #fffaf0;
+      border-radius: 20px;
+      padding: 25px;
+      font-family: 'Georgia', serif;
+      color: #6b4b3e;
+      line-height: 1.7;
+      text-align: left;
+    }
+
+    /* ESCAPING BUTTON */
+    #escapeBtn {
+      position: fixed;
+      transition: all 0.25s ease;
+      z-index: 999;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- PAGE 1 -->
+<div class="card-box" id="page1">
+  <div class="question">
+    Hey Cutu,<br>
+    Do you wanna be my Valentine? 💕
+  </div>
+
+  <!-- MAKE SURE baby.png IS IN SAME FOLDER -->
+  <img src="baby.png" class="baby-img">
+
+  <div class="d-flex justify-content-center gap-3">
+    <button class="btn btn-main" onclick="showPassword()">Yes 💖</button>
+    <button class="btn btn-soft" onclick="goToNo()">No 🙈</button>
+  </div>
+</div>
+
+<!-- PASSWORD PAGE -->
+<div class="card-box hidden" id="passwordPage">
+  <div class="back-arrow" onclick="backToStart()">←</div>
+  <div class="question">
+    ooh 😏<br>
+    guess my fav food?
+  </div>
+
+  <input id="passwordInput" class="form-control mb-3 text-center" >
+  <button class="btn btn-main" onclick="checkPassword()">Unlock 💌</button>
+</div>
+
+<!-- INTRUDER PAGE -->
+<div class="card-box hidden" id="intruderPage">
+  <div class="back-arrow" onclick="showPassword()">←</div>
+  <div class="question">
+    Hehe 😌💗<br><br>
+    Just checking if it’s really my cutu<br>
+    or some intruder 👀
+  </div>
+
+  <button class="btn btn-main mt-3" onclick="goToLetter()">Read the letter 💌</button>
+</div>
+
+<!-- LETTER PAGE -->
+<div class="card-box hidden" id="letterPage">
+  <div class="back-arrow" onclick="backToIntruder()">←</div>
+
+  <div class="letter">
+    <p><b>My Dear Cutu,</b></p>
+
+    <p>
+      कल की रात में तेरा ही ज़िक्र था,<br>
+      कोई चाँद कहे, कोई चेहरा—<br>
+      हम मुस्कुरा कर चुप रह गए,<br>
+      कि परदा तेरा भी अदा था।
+    </p>
+
+    <p>
+      इस शहर की हर राह पर<br>
+      तेरा नाम ठहर जाता है,<br>
+      महफ़िलें छूट गईं हमसे<br>
+      और दिल तुझ तक ही जाता है।
+    </p>
+
+    <p>
+      हाँ, तू कोई ख़्वाब नहीं—<br>
+      फिर भी ख़्वाब-सा लगता है,<br>
+      लफ़्ज़ों से नहीं,<br>
+      मेरे दिल से तू चमकता है।
+    </p>
+
+    <p>— Yours ❤️</p>
+  </div>
+</div>
+
+<!-- NO FLOW 1 -->
+<div class="card-box hidden" id="noPage1">
+  <div class="back-arrow" onclick="backToStart()">←</div>
+  <div class="question">Are you sure??? 🥺🥺</div>
+
+  <div class="d-flex justify-content-center gap-3">
+    <button class="btn btn-main" onclick="noConfirm()">Yes</button>
+    <button class="btn btn-soft" onclick="backToStart()">No</button>
+  </div>
+</div>
+
+<!-- NO FLOW 2 -->
+<div class="card-box hidden" id="noPage2">
+  <div class="back-arrow" onclick="goToNo()">←</div>
+  <div class="question">no you can’t do this 😤💔</div>
+
+  <button class="btn btn-main mt-3" onclick="showPassword()">
+    Yes I accept 💖
+  </button>
+
+  <button class="btn btn-soft" id="escapeBtn">
+    No I don’t accept 🙈
+  </button>
+</div>
+
+<script>
+  function hideAll() {
+    document.querySelectorAll('.card-box').forEach(el =>
+      el.classList.add('hidden')
+    );
+  }
+
+  function backToStart() {
+    hideAll();
+    page1.classList.remove('hidden');
+  }
+
+  function showPassword() {
+    hideAll();
+    passwordPage.classList.remove('hidden');
+  }
+
+  function checkPassword() {
+    if (passwordInput.value.toLowerCase() === "maggie") {
+      hideAll();
+      intruderPage.classList.remove('hidden');
+    } else {
+      alert("Wrong 😜 try again cutu");
+    }
+  }
+
+  function goToLetter() {
+    hideAll();
+    letterPage.classList.remove('hidden');
+  }
+
+  function backToIntruder() {
+    hideAll();
+    intruderPage.classList.remove('hidden');
+  }
+
+  function goToNo() {
+    hideAll();
+    noPage1.classList.remove('hidden');
+  }
+
+  function noConfirm() {
+    hideAll();
+    noPage2.classList.remove('hidden');
+    moveButton();
+  }
+
+  const escapeBtn = document.getElementById("escapeBtn");
+
+  function moveButton() {
+    const padding = 80;
+    const maxX = window.innerWidth - escapeBtn.offsetWidth - padding;
+    const maxY = window.innerHeight - escapeBtn.offsetHeight - padding;
+
+    const x = Math.random() * maxX + padding / 2;
+    const y = Math.random() * maxY + padding / 2;
+
+    escapeBtn.style.left = x + "px";
+    escapeBtn.style.top = y + "px";
+  }
+
+  escapeBtn.addEventListener("mouseover", moveButton);
+  escapeBtn.addEventListener("touchstart", moveButton);
+</script>
+
+</body>
+</html>
